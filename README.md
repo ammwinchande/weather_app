@@ -1,16 +1,36 @@
-# weather_app
+# weatloc
 
-A new Flutter project.
+A Weather Application build with =3 in flutter
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Flutter application.
+To use the application follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+### On Android Studio
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Choose checkout from Version Control
+- Paste the URL copied from the repo
+- Select no when it asks for wanting to setup as android project
+- Click open existing android studio project
+- If prompt to install packages, accept if not open terminal and navigate to where the file is and run:
+  `flutter pub get`
+- Run the project after opening by clicking the `play button`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Using VS-Code
+
+- Clone the project
+- If prompt to install packages, accept if not open terminal and navigate to where the file is and run:
+  `flutter pub get`
+- Run the project after opening `lib/main.dart` by pressing Ctrl/Command + f5
+
+## USAGE
+
+- After successfully installation slide from left to right to see various regions
+
+## NOTE
+
+All of the steps mentioned assumes you have flutter setup on your machine.
+
+## Screenshots and APK
+
+See `completed app` folder
