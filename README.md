@@ -33,4 +33,4 @@ All of the steps mentioned assumes you have flutter setup on your machine.
 
 ## Screenshots and APK
 
-See `completed app` folder
+See `completed app` folder Android version of the app
