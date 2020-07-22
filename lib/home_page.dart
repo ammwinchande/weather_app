@@ -68,8 +68,6 @@ class _HomePageState extends State<HomePage> {
         .map((city) => WeatherModel.fromResponse(city))
         .toList();
 
-    print(req);
-
     setState(() {
       weatherList = req;
     });
@@ -210,7 +208,7 @@ class _HomePageState extends State<HomePage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      color: Color(0xFFAB4459),
+      color: util == 'wind' ? Color(0xFFAB4459) : Color(0xFF9D5070),
       child: Container(
         width: MediaQuery.of(context).size.width / 3.3,
         height: MediaQuery.of(context).size.height / 5,
@@ -225,7 +223,7 @@ class _HomePageState extends State<HomePage> {
               child: textSelector(weatherModel, util),
             ),
             Container(
-              color: Color(0xFF9A3545),
+              color: util == 'wind' ? Color(0xFF9A3545) : Color(0xFF893E5D),
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
