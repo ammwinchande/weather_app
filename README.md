@@ -34,3 +34,6 @@ All of the steps mentioned assumes you have flutter setup on your machine.
 ## Screenshots and APK
 
 See `completed app` folder Android version of the app
+
+- Install the one based on your phone version
+- If you don't know your phone version install the one with the name `app-release.apk`
