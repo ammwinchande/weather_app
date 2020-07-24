@@ -1,11 +1,6 @@
-import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:weather_icons/weather_icons.dart';
-import 'package:weatloc/api/response.dart';
-import 'package:weatloc/api/weather_client.dart';
 import 'package:weatloc/model/weather_model.dart';
 import 'package:weatloc/repositories/weather_repository.dart';
 
@@ -40,6 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    weatherRepository = new WeatherRepository();
     this.getWeatherList([160263, 160196, 149606]);
     super.initState();
   }
@@ -50,23 +46,7 @@ class _HomePageState extends State<HomePage> {
   ///
   /// @return String
   Future<String> getWeatherList(List<int> cityIds) async {
-    String citiesId = '';
-    cityIds.forEach((cityId) => citiesId = citiesId + cityId.toString() + ',');
-    citiesId = citiesId.substring(0, citiesId.length - 1);
-    final String _apiKey = WeatherClient.apiKey;
-    final String _host = WeatherClient.host;
-    String url = _host +
-        'data/2.5/group' +
-        '?id=$citiesId&appid=' +
-        _apiKey +
-        '&units=metric';
-    var response = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-
-    List<WeatherModel> req = BaseResponse.fromJson(json.decode(response.body))
-        .cities
-        .map((city) => WeatherModel.fromResponse(city))
-        .toList();
+    List<WeatherModel> req = await weatherRepository.fetchWeather(cityIds);
 
     setState(() {
       weatherList = req;
@@ -110,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             return Container(
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.symmetric(horizontal: 5.0),
-              decoration: BoxDecoration(color: Color(0xff65456e)),
+              decoration: BoxDecoration(color: Color(0xff734f7d)),
               child: Column(
                 children: <Widget>[
                   buildWeatherTemp(weather),
@@ -222,19 +202,21 @@ class _HomePageState extends State<HomePage> {
               ),
               child: textSelector(weatherModel, util),
             ),
-            Container(
-              color: util == 'wind' ? Color(0xFF9A3545) : Color(0xFF893E5D),
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    util == 'pressure'
-                        ? "Air ${capitalize(util)}"
-                        : capitalize(util),
-                    style: textStyle.copyWith(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
+            Expanded(
+              child: Container(
+                color: util == 'wind' ? Color(0xFF9A3545) : Color(0xFF893E5D),
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      util == 'pressure'
+                          ? "Air ${capitalize(util)}"
+                          : capitalize(util),
+                      style: textStyle.copyWith(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
