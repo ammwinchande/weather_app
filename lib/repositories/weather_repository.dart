@@ -16,9 +16,10 @@ class WeatherRepository {
 
   Future<List<WeatherModel>> fetchWeather(List<int> cityIds) async {
     cityIds.forEach((cityId) => citiesId = citiesId + cityId.toString() + ',');
+    citiesId = citiesId.substring(0, citiesId.length - 1);
     String url = _host +
         'data/2.5/group' +
-        '?id=${citiesId.substring(0, citiesId.length - 1)}&appid=' +
+        '?id=$citiesId&appid=' +
         _apiKey +
         '&units=metric';
 

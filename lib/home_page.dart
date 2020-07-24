@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: <Widget>[
                   buildWeatherTemp(weather),
-                  SizedBox(height: MediaQuery.of(context).size.height / 3),
+                  SizedBox(height: MediaQuery.of(context).size.height / 2.3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -217,8 +217,8 @@ class _HomePageState extends State<HomePage> {
             iconSelector(util),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 19.5,
-                horizontal: 8.0,
+                vertical: 29,
+                horizontal: 6.0,
               ),
               child: textSelector(weatherModel, util),
             ),
@@ -229,7 +229,9 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: Text(
-                    capitalize(util),
+                    util == 'pressure'
+                        ? "Air ${capitalize(util)}"
+                        : capitalize(util),
                     style: textStyle.copyWith(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w500,
@@ -248,12 +250,12 @@ class _HomePageState extends State<HomePage> {
   ///
   /// @param String selector
   /// @return Icon
-  iconSelector(String selector) {
+  Icon iconSelector(String selector) {
     switch (selector) {
       case 'wind':
         return Icon(
           WeatherIcons.wind_beaufort_0,
-          size: 60,
+          size: 40,
           color: Colors.white,
         );
         break;
@@ -261,7 +263,7 @@ class _HomePageState extends State<HomePage> {
       case 'humidity':
         return Icon(
           WeatherIcons.humidity,
-          size: 60,
+          size: 40,
           color: Colors.white,
         );
         break;
@@ -269,11 +271,16 @@ class _HomePageState extends State<HomePage> {
       case 'pressure':
         return Icon(
           WeatherIcons.barometer,
-          size: 60,
+          size: 40,
           color: Colors.white,
         );
         break;
       default:
+        return Icon(
+          Icons.queue_play_next,
+          size: 40,
+          color: Colors.white,
+        );
         break;
     }
   }
@@ -284,7 +291,7 @@ class _HomePageState extends State<HomePage> {
   /// @param String util
   ///
   /// @return RichText
-  textSelector(WeatherModel weatherModel, String util) {
+  RichText textSelector(WeatherModel weatherModel, String util) {
     switch (util) {
       case 'wind':
         return RichText(
@@ -326,7 +333,7 @@ class _HomePageState extends State<HomePage> {
         return RichText(
           text: TextSpan(
             text: weatherModel.pressure.toString(),
-            style: textStyle.copyWith(fontSize: 24.0),
+            style: textStyle.copyWith(fontSize: 20.0),
             children: <TextSpan>[
               TextSpan(
                 text: " hpa",
@@ -340,6 +347,21 @@ class _HomePageState extends State<HomePage> {
         );
         break;
       default:
+        return RichText(
+          text: TextSpan(
+            text: 'No data',
+            style: textStyle.copyWith(fontSize: 24.0),
+            children: <TextSpan>[
+              TextSpan(
+                text: ' ---',
+                style: textStyle.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
         break;
     }
   }
